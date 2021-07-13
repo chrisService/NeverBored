@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.DetailsFragment">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        tools:ignore="UselessParent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/tv_raiting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="26sp"
+                tools:text="7.9"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                tools:ignore="RelativeOverlap" />
+
+
+            <ImageView
+                android:id="@+id/iv_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_favorite_border_black_40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                app:tint="@android:color/holo_red_dark"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="20dp"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_favorite"
+                android:id="@+id/tv_title"
+                android:textSize="30sp"
+                android:paddingHorizontal="10dp"
+                android:textAlignment="center"
+                tools:text="La casa de papel"/>
+
+            <ImageView
+                android:id="@+id/iv_poster"
+                android:layout_width="wrap_content"
+                android:layout_height="400dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/tv_title"
+                android:layout_marginTop="20dp"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:text="Description"
+                android:textSize="28sp"
+                android:layout_below="@+id/iv_poster"
+                android:layout_marginTop="20dp"
+                android:paddingHorizontal="10dp"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tv_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Very popular TV show"
+                android:layout_below="@+id/tv_desc"
+                android:layout_marginTop="10dp"
+                android:textSize="18sp"
+                android:textAlignment="center"
+                android:paddingHorizontal="10dp"/>
+
+            <TextView
+                android:id="@+id/tv_seas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:text="Seasons"
+                android:textSize="28sp"
+                android:layout_below="@+id/tv_description"
+                android:layout_marginTop="20dp"
+                android:paddingHorizontal="10dp"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tv_seasons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Sesason 1 - 6 episodes"
+                android:layout_below="@+id/tv_seas"
+                android:paddingHorizontal="10dp"
+                android:textSize="20sp"
+                android:textAlignment="textStart"
+                android:layout_marginTop="10dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_simmilar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_seasons"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp"/>
+
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progresBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>
