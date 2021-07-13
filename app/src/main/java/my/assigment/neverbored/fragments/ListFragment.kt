@@ -76,8 +76,10 @@ class ListFragment : Fragment() {
     private fun getRequest(){
             viewModel.getWeekTrending(object : ViewModelListener{
                 override fun onStarted(message: String?) {
+                    bindings.progresBar.visibility = View.VISIBLE
                 }
                 override fun onSuccess(message: String?) {
+                    bindings.progresBar.visibility = View.GONE
                     setAdapter()
                     adapter.updateList(viewModel.tvShows)
                 }
