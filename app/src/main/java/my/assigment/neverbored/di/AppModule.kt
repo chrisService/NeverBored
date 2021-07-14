@@ -1,26 +1,31 @@
 package my.assigment.neverbored.di
 
 
+import android.content.Context
+import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
-import my.assigment.neverbored.Constransts
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import my.assigment.neverbored.Constansts
 import my.assigment.neverbored.viewModel.MainViewModel
 import my.assigment.neverbored.api.TmdbApiService
+import my.assigment.neverbored.db.TvShowsDatabase
 import my.assigment.neverbored.repositories.MainRepository
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object AppModule {
+
 
     @Singleton
     @Provides
     fun provideApi(): TmdbApiService = Retrofit.Builder()
-        .baseUrl(Constransts.BASE_URL)
+        .baseUrl(Constansts.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
         .create(TmdbApiService::class.java)
@@ -28,13 +33,27 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideMainRepository(): MainRepository{
-        return MainRepository(provideApi())
+    fun provideMainRepository(@ApplicationContext app: Context): MainRepository{
+        return MainRepository(provideApi(), provideDao(provideTvShowsDatabase(app)))
     }
 
     @Singleton
     @Provides
-    fun provideMainViewModel(): MainViewModel{
-        return MainViewModel(provideMainRepository())
+    fun provideMainViewModel(@ApplicationContext app: Context): MainViewModel{
+        return MainViewModel(provideMainRepository(app))
     }
+
+    @Singleton
+    @Provides
+    fun provideTvShowsDatabase(@ApplicationContext app: Context
+    ) = Room.databaseBuilder(
+        app,
+        TvShowsDatabase::class.java,
+        "tv_shows_db"
+    ).fallbackToDestructiveMigration()
+        .build()
+
+    @Singleton
+    @Provides
+    fun provideDao(db: TvShowsDatabase) = db.getShowsDao()
 }

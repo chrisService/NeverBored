@@ -2,13 +2,17 @@ package my.assigment.neverbored.models
 
 
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "tv_shows_table")
 data class TvShow(
-    @SerializedName("first_air_date")
-    val firstAirDate: String?,
+    @PrimaryKey
     @SerializedName("id")
     val id: Int?,
+    @SerializedName("first_air_date")
+    val firstAirDate: String?,
     @SerializedName("name")
     val name: String?,
     @SerializedName("original_name")

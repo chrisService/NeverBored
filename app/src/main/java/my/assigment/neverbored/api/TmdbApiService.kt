@@ -1,9 +1,7 @@
 package my.assigment.neverbored.api
 
-import my.assigment.neverbored.Constransts
 import my.assigment.neverbored.models.TMDBResponse
 import my.assigment.neverbored.models.TvShow
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.QueryMap

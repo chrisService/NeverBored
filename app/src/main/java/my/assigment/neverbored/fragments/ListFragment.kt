@@ -1,5 +1,6 @@
 package my.assigment.neverbored.fragments
 
+
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,17 +9,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import m.otpremnica.android.utility.listeners.ViewModelListener
+import my.assigment.neverbored.Constansts
 import my.assigment.neverbored.R
 import my.assigment.neverbored.adapters.TvShowsRVAdapret
 import my.assigment.neverbored.adapters.interfaces.AdapterClickListener
 import my.assigment.neverbored.databinding.FragmentListBinding
 import my.assigment.neverbored.models.TvShow
 import my.assigment.neverbored.viewModel.MainViewModel
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -29,7 +36,8 @@ class ListFragment : Fragment() {
     lateinit var adapter: TvShowsRVAdapret
     lateinit var etSearch: EditText
 
-    val viewModel : MainViewModel by viewModels()
+    @Inject
+    lateinit var viewModel : MainViewModel
 
 
     override fun onCreateView(
@@ -46,6 +54,7 @@ class ListFragment : Fragment() {
 
         return view
     }
+
 
 
     private fun search(){
@@ -74,18 +83,31 @@ class ListFragment : Fragment() {
     }
 
     private fun getRequest(){
-            viewModel.getWeekTrending(object : ViewModelListener{
-                override fun onStarted(message: String?) {
-                    bindings.progresBar.visibility = View.VISIBLE
-                }
-                override fun onSuccess(message: String?) {
-                    bindings.progresBar.visibility = View.GONE
+
+        viewModel.getWeekTrending(object :ViewModelListener{
+            override fun onStarted(message: String?) {
+                bindings.progresBar.visibility = View.VISIBLE
+            }
+            override fun onSuccess(message: String?) {
+                bindings.progresBar.visibility = View.GONE
+                GlobalScope.launch(Dispatchers.Main) {
+                    val shows  = withContext(Dispatchers.Default) { viewModel.getFromDb() }
+
                     setAdapter()
-                    adapter.updateList(viewModel.tvShows)
+                    adapter.updateList(shows)
+                    bindings.progresBar.visibility = View.GONE
                 }
-                override fun onFailure(message: String?) {
+            }
+            override fun onFailure(message: String?) {
+                GlobalScope.launch(Dispatchers.Main) {
+                    val shows  = withContext(Dispatchers.Default) { viewModel.getFromDb() }
+
+                    setAdapter()
+                    adapter.updateList(shows)
+                    bindings.progresBar.visibility = View.GONE
                 }
-            })
+            }
+        })
     }
 
 
@@ -93,8 +115,10 @@ class ListFragment : Fragment() {
 
         adapter = TvShowsRVAdapret(mutableListOf(),object: AdapterClickListener<TvShow>{
             override fun onClick(response: TvShow?) {
+
+                val outputString = Gson().toJson(response)
                 val bundle = Bundle()
-                bundle.putInt("tvShowId", response?.id!!)
+                bundle.putString(Constansts.TvShowID, outputString)
                 findNavController().navigate(R.id.action_listFragment_to_detailsFragment, bundle)
             }
         })

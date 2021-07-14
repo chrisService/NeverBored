@@ -25,8 +25,5 @@ class SimilarTvShowsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
         itemView.setOnClickListener {
             listener.onClick(tvShow)
         }
-
     }
-
-
 }

@@ -28,7 +28,11 @@ class TvShowsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val poserUrl = "https://image.tmdb.org/t/p/w500" + tvShow.posterPath
 
         tv_raiting.text = tvShow.voteAverage.toString()
-        //favorite
+        if (tvShow.favorite){
+            iv_favorite.setImageResource(R.drawable.ic_favorite_black_24dp)
+        }else{
+            iv_favorite.setImageResource(R.drawable.ic_favorite_border_black_40dp)
+        }
         Glide.with(iv_poster.context).load(poserUrl).into(iv_poster)
         tv_title.text = tvShow.originalName.toString()
 

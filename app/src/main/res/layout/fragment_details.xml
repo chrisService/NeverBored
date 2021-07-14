@@ -67,12 +67,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="textStart"
-                android:text="Description"
+                android:text="@string/description"
                 android:textSize="28sp"
                 android:layout_below="@+id/iv_poster"
                 android:layout_marginTop="20dp"
-                android:paddingHorizontal="10dp"
-                tools:ignore="HardcodedText" />
+                android:paddingHorizontal="10dp" />
 
             <TextView
                 android:id="@+id/tv_description"
@@ -90,12 +89,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="textStart"
-                android:text="Seasons"
+                android:text="@string/seasons"
                 android:textSize="28sp"
                 android:layout_below="@+id/tv_description"
                 android:layout_marginTop="20dp"
                 android:paddingHorizontal="10dp"
-                tools:ignore="HardcodedText" />
+                />
 
             <TextView
                 android:id="@+id/tv_seasons"
@@ -115,6 +114,19 @@
                 android:layout_below="@+id/tv_seasons"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
+                android:layout_marginBottom="20dp"/>
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_simmilar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_seasons"
+                android:layout_marginTop="20dp"
+                android:textAlignment="center"
+                android:textSize="35sp"
+                android:textColor="@color/splash_background"
+                android:text="@string/please_activate_internet_for_better_experiance_using_this_app"
                 android:layout_marginBottom="20dp"/>
 
 

@@ -1,8 +1,8 @@
 package my.assigment.neverbored.viewModel
 
+
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import m.otpremnica.android.utility.listeners.ViewModelListener
 import my.assigment.neverbored.models.TvShow
@@ -14,6 +14,7 @@ class MainViewModel @ViewModelInject constructor(
    private val repository: MainRepository
 ) : ViewModel() {
 
+
     var tvShows = listOf<TvShow>()
     var similarTvShows = listOf<TvShow>()
     lateinit var tvShowDetails: TvShow
@@ -24,20 +25,55 @@ class MainViewModel @ViewModelInject constructor(
         viewModelListener.onStarted()
         viewModelScope.launch {
             try {
-                tvShows = repository.getWeekTrending().results!!
+              tvShows =   repository.getWeekTrending()
                 viewModelListener.onSuccess()
             }catch (e: Exception){
+                e.printStackTrace()
                 viewModelListener.onFailure(e.message)
             }
         }
     }
+
+    suspend fun getFromDb(): List<TvShow>{
+        return repository.getShowsFromDB()
+    }
+
+
+    suspend fun insertToFavorites(tvShow: TvShow,viewModelListener: ViewModelListener):TvShow{
+
+        viewModelListener.onStarted()
+        try {
+            repository.insertToFavorites(tvShow)
+            viewModelListener.onSuccess()
+        }catch (e:Exception){
+            e.printStackTrace()
+            viewModelListener.onFailure(e.message)
+        }
+
+        return tvShow
+    }
+
+    suspend fun deleteFromFavorites(tvShow: TvShow,viewModelListener: ViewModelListener):TvShow{
+
+        viewModelListener.onStarted()
+        try {
+            repository.deleteFromFavorites(tvShow)
+            viewModelListener.onSuccess()
+        }catch (e:Exception){
+            e.printStackTrace()
+            viewModelListener.onFailure(e.message)
+        }
+
+        return tvShow
+    }
+
 
     fun getDetails(id: String, viewModelListener: ViewModelListener){
 
         viewModelListener.onStarted()
         viewModelScope.launch {
             try {
-                tvShowDetails = repository.getDetails(id)!!
+                tvShowDetails = repository.getDetails(id)
                 viewModelListener.onSuccess()
             }catch (e: Exception){
                 viewModelListener.onFailure(e.message)
@@ -71,6 +107,7 @@ class MainViewModel @ViewModelInject constructor(
             }
         }
     }
+
 
 
 }

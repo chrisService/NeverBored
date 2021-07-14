@@ -26,8 +26,6 @@ class TvShowsRVAdapret(var tvShows: MutableList<TvShow>, val listener: AdapterCl
                 listener.onClick(response)
             }
         })
-
-
     }
 
     override fun getItemCount(): Int {

@@ -2,4 +2,10 @@
     <string name="app_name">NeverBored</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="a_tv_shows_app">A Tv Shows App</string>
+    <string name="search_tv_shows">Search TV Shows</string>
+    <string name="description">Description</string>
+    <string name="seasons">Seasons</string>
+    <string name="favorites">Favorites</string>
+    <string name="please_activate_internet_for_better_experiance_using_this_app">Please activate internet for better experiance using this app</string>
 </resources>
